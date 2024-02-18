@@ -1,4 +1,4 @@
-﻿using ProyectoWeb_Martes.Models;
+﻿using ProyectoWeb_Martes.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +10,43 @@ namespace ProyectoWeb_Martes.Controllers
 {
     public class InicioController : Controller
     {
+        [HttpGet]
         public ActionResult IniciarSesion()
         {
             return View();
         }
 
+        [HttpPost]
+        public ActionResult IniciarSesion(Usuario entidad)
+        {
+            return RedirectToAction("PantallaPrincipal", "Inicio");
+        }
+
+        [HttpGet]
         public ActionResult RegistrarUsuario()
         {
             return View();
         }
 
+        [HttpPost]
+        public ActionResult RegistrarUsuario(Usuario entidad)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult RecuperarAcceso()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RecuperarAcceso(Usuario entidad)
+        {
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult PantallaPrincipal()
         {
             return View();
