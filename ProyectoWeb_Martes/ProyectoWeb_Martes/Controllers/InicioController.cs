@@ -1,15 +1,13 @@
 ﻿using ProyectoWeb_Martes.Entidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.ModelBinding;
+using ProyectoWeb_Martes.Models;
 using System.Web.Mvc;
 
 namespace ProyectoWeb_Martes.Controllers
 {
     public class InicioController : Controller
     {
+        UsuarioModel modelo = new UsuarioModel();
+
         [HttpGet]
         public ActionResult IniciarSesion()
         {
@@ -31,6 +29,7 @@ namespace ProyectoWeb_Martes.Controllers
         [HttpPost]
         public ActionResult RegistrarUsuario(Usuario entidad)
         {
+            modelo.RegistrarUsuario(entidad);
             return View();
         }
 
