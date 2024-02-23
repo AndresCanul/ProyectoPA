@@ -17,7 +17,15 @@ namespace ProyectoWeb_Martes.Controllers
         [HttpPost]
         public ActionResult IniciarSesion(Usuario entidad)
         {
-            return RedirectToAction("PantallaPrincipal", "Inicio");
+            var respuesta = modelo.IniciarSesionUsuario(entidad);
+
+            if (respuesta.Codigo == 0)
+                return RedirectToAction("PantallaPrincipal", "Inicio");
+            else
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View();
+            }                
         }
 
         [HttpGet]
@@ -29,8 +37,13 @@ namespace ProyectoWeb_Martes.Controllers
         [HttpPost]
         public ActionResult RegistrarUsuario(Usuario entidad)
         {
-            modelo.RegistrarUsuario(entidad);
-            return View();
+            var respuesta = modelo.RegistrarUsuario(entidad);
+
+            if (respuesta.Codigo == 0)
+                return RedirectToAction("IniciarSesion", "Inicio");
+            else
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View();
         }
 
         [HttpGet]

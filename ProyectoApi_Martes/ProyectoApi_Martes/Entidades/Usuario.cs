@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoApi_Martes.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,9 +12,9 @@ namespace ProyectoWeb_Martes.Entidades
 
         public string Clave { get; set; }
 
-        public string Nombre { get; set;}
+        public string Nombre { get; set; }
 
-        public string CorreoElectronico { get; set;}
+        public string CorreoElectronico { get; set; }
     }
 
     public class ConfirmacionUsuario
@@ -22,8 +23,8 @@ namespace ProyectoWeb_Martes.Entidades
 
         public string Detalle { get; set; }
 
-        public List<Usuario> Datos { get; set; }
+        public List<IniciarSesionUsuario_Result> Datos { get; set; }
 
-        public Usuario Dato { get; set; }
+        public IniciarSesionUsuario_Result Dato { get; set; }
     }
 }

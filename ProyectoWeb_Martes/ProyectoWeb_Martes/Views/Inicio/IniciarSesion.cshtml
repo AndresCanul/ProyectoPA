@@ -22,10 +22,18 @@
                                 <div class="text-center">
                                     <h3 class="h4 text-gray-900 mb-4">Iniciar Sesión</h3>
                                 </div>
+
+                                @if (ViewBag.MsjPantalla != null)
+                                {
+                                    <div class="alert alert-warning" role="alert" style="text-align:center">
+                                        @ViewBag.MsjPantalla
+                                    </div>
+                                }
+
                                 @using (Html.BeginForm("IniciarSesion", "Inicio"))
                                 {
                                     <div class="form-group">
-                                        @Html.TextBoxFor(m => m.Identificacion, new { @class="form-control form-control-user", @placeholder = "Identificacion" })
+                                        @Html.TextBoxFor(m => m.Identificacion, new { @class = "form-control form-control-user", @placeholder = "Identificacion" })
                                     </div>
                                     <div class="form-group">
                                         @Html.PasswordFor(m => m.Clave, new { @class = "form-control form-control-user", @placeholder = "Contraseña" })
