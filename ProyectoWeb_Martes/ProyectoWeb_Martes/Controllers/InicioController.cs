@@ -20,7 +20,11 @@ namespace ProyectoWeb_Martes.Controllers
             var respuesta = modelo.IniciarSesionUsuario(entidad);
 
             if (respuesta.Codigo == 0)
+            {
+                Session["NombreUsuario"] = respuesta.Dato.Nombre;
+                Session["RolUsuario"] = respuesta.Dato.ConsecutivoRol;
                 return RedirectToAction("PantallaPrincipal", "Inicio");
+            }
             else
             {
                 ViewBag.MsjPantalla = respuesta.Detalle;
@@ -55,13 +59,28 @@ namespace ProyectoWeb_Martes.Controllers
         [HttpPost]
         public ActionResult RecuperarAcceso(Usuario entidad)
         {
+            var respuesta = modelo.RecuperarAccesoUsuario(entidad);
+
+            if (respuesta.Codigo == 0)
+                return RedirectToAction("IniciarSesion", "Inicio");
+            else
+                ViewBag.MsjPantalla = respuesta.Detalle;
             return View();
         }
 
+        [FiltroSeguridad]
         [HttpGet]
         public ActionResult PantallaPrincipal()
         {
             return View();
+        }
+
+        [FiltroSeguridad]
+        [HttpGet]
+        public ActionResult CerrarSesion()
+        {
+            Session.Clear();
+            return RedirectToAction("IniciarSesion", "Inicio");
         }
     }
 }

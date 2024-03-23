@@ -14,6 +14,8 @@ namespace ProyectoWeb_Martes.Entidades
         public string Nombre { get; set;}
 
         public string CorreoElectronico { get; set;}
+
+        public long ConsecutivoRol { get; set; }
     }
 
     public class ConfirmacionUsuario

@@ -23,11 +23,14 @@
                                     <h3 class="h4 text-gray-900 mb-4">Recuperar Acceso</h3>
                                 </div>
 
-                                @using (Html.BeginForm("RecuperarAcceso", "Inicio"))
+                                @using (Html.BeginForm("RecuperarAcceso", "Inicio", FormMethod.Post))
                                 {
                                     <div class="form-group">
                                         <div class="form-group">
-                                            @Html.TextBoxFor(m => m.Identificacion, new { @class = "form-control form-control-user", @placeholder = "Identificacion" })
+                                            @Html.TextBoxFor(m => m.Identificacion, new { @class = "form-control form-control-user", @placeholder = "Identificacion", @required = "true" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(m => m.CorreoElectronico, new { @class = "form-control form-control-user", @placeholder = "Correo", @type = "Email", @required = "true" })
                                         </div>
                                     </div>
 

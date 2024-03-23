@@ -1,0 +1,62 @@
+﻿@model List<ProyectoWeb_Martes.Entidades.Producto>
+
+@{
+    ViewBag.Title = "ConsultaProductos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Productos</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+
+                        @if (ViewBag.MsjPantalla != null)
+                        {
+                            <div class="alert alert-warning" role="alert" style="text-align:center">
+                                @ViewBag.MsjPantalla
+                            </div>
+                        }
+
+                        <table class="table table-bordered dataTable" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th>Inventario</th>
+                                    <th>Categoría</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="odd">
+                                        <td>@item.NombreProducto</td>
+                                        <td>@item.Precio</td>
+                                        <td>@item.Inventario</td>
+                                        <td>@item.NombreCategoria</td>
+                                        @if (item.Estado)
+                                        {
+                                            <td>Activo</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Inactivo</td>
+                                        }
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

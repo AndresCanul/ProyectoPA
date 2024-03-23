@@ -18,8 +18,8 @@ namespace ProyectoApi_Martes.Models
         public string Clave { get; set; }
         public string Nombre { get; set; }
         public string CorreoElectronico { get; set; }
-        public Nullable<bool> Estado { get; set; }
-        public Nullable<bool> Temporal { get; set; }
-        public Nullable<System.DateTime> Vencimiento { get; set; }
+        public bool Estado { get; set; }
+        public bool Temporal { get; set; }
+        public System.DateTime Vencimiento { get; set; }
     }
 }

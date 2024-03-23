@@ -11,16 +11,9 @@ namespace ProyectoApi_Martes.Models
 {
     using System;
     
-    public partial class IniciarSesionUsuario_Result
+    public partial class ConsultarTiposCategoria_Result
     {
-        public long Consecutivo { get; set; }
-        public string Identificacion { get; set; }
-        public string Clave { get; set; }
-        public string Nombre { get; set; }
-        public string CorreoElectronico { get; set; }
-        public bool Estado { get; set; }
-        public bool Temporal { get; set; }
-        public System.DateTime Vencimiento { get; set; }
-        public long ConsecutivoRol { get; set; }
+        public int IdCategoria { get; set; }
+        public string NombreCategoria { get; set; }
     }
 }

@@ -40,5 +40,21 @@ namespace ProyectoWeb_Martes.Models
                    return null;
             }
         }
+
+        public Confirmacion RecuperarAccesoUsuario(Usuario entidad)
+        {
+            // LLamar al API
+            using (var client = new HttpClient())
+            {
+                url += "Inicio/RecuperarAccesoUsuario";
+                JsonContent jsonEntidad = JsonContent.Create(entidad);
+                var respuesta = client.PostAsync(url, jsonEntidad).Result;
+
+                if (respuesta.IsSuccessStatusCode)
+                    return respuesta.Content.ReadFromJsonAsync<Confirmacion>().Result;
+                else
+                    return null;
+            }
+        }
     }
 }

@@ -33,7 +33,7 @@
                                 @using (Html.BeginForm("IniciarSesion", "Inicio"))
                                 {
                                     <div class="form-group">
-                                        @Html.TextBoxFor(m => m.Identificacion, new { @class = "form-control form-control-user", @placeholder = "Identificacion" })
+                                        @Html.TextBoxFor(m => m.Identificacion, new { @class = "form-control form-control-user", @placeholder = "Identificacion", @autocomplete="off" })
                                     </div>
                                     <div class="form-group">
                                         @Html.PasswordFor(m => m.Clave, new { @class = "form-control form-control-user", @placeholder = "Contraseña" })
