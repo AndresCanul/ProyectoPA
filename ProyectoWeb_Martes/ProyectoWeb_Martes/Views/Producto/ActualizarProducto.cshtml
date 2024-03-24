@@ -1,0 +1,73 @@
+﻿@model ProyectoWeb_Martes.Entidades.Producto
+
+@{
+    ViewBag.Title = "ActualizarProducto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Productos</h6>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class="card-body">
+                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                    @if (ViewBag.MsjPantalla != null)
+                    {
+                        <div class="alert alert-warning" role="alert" style="text-align:center">
+                            @ViewBag.MsjPantalla
+                        </div>
+                    }
+
+                    @using (Html.BeginForm("ActualizarProducto", "Producto", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                    {
+
+                        @Html.HiddenFor(m => m.Consecutivo)
+
+                        @Html.HiddenFor(m => m.RutaImagen)
+
+                        <div class="form-group">
+                            @Html.Label("Nombre")
+                            @Html.TextBoxFor(m => m.NombreProducto, new { @class = "form-control form-control-user", @placeholder = "Nombre", @required = "true" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Precio")
+                            @Html.TextBoxFor(m => m.Precio, new { @class = "form-control form-control-user", @placeholder = "Precio", @required = "true" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Inventario")
+                            @Html.TextBoxFor(m => m.Inventario, new { @class = "form-control form-control-user", @placeholder = "Inventario", @type = "Number", @required = "true" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Categoria")
+                            @Html.DropDownListFor(m => m.IdCategoria, ViewBag.TiposCategoria as List<SelectListItem>, new { @class = "form-control form-control-user", @required = "true" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Imagen")
+                            <div class="row">
+                                <div class="col-9">
+                                    <input type="file" id="ImagenProducto" name="ImagenProducto" class="form-control form-control-user">
+                                </div>
+
+                                <div class="col-2" style="text-align:center; margin-right:5%">
+                                    <img src="@ViewBag.urlImagen" style="width:80px; height:80px">
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="submit" class="btn btn-primary btn-user btn-block" value="Procesar">
+                    }
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

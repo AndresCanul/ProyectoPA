@@ -17,6 +17,8 @@ namespace ProyectoApi_Martes.Entidades
         public string CorreoElectronico { get; set; }
 
         public long ConsecutivoRol { get; set; }
+
+        public string NombreRol { get; set; }
     }
 
     public class ConfirmacionUsuario

@@ -12,6 +12,7 @@
     <script src="https://kit.fontawesome.com/9441ab567a.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="~/Estilos/css/sb-admin-2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" />
 
 </head>
 
@@ -101,12 +102,25 @@
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    @if (Session["NombreRol"] != null)
+                                    {
+                                        @Session["NombreRol"].ToString().ToUpper();
+                                    }
+                                </span>
+                            </a>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                    @if(Session["NombreUsuario"] != null)
+                                    @if (Session["NombreUsuario"] != null)
                                     {
                                         @Session["NombreUsuario"].ToString();
                                     }
@@ -192,6 +206,8 @@
     <script src="~/Estilos/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="~/Estilos/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/Estilos/js/sb-admin-2.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
 
 </body>
 

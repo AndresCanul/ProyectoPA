@@ -4,15 +4,28 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="martes_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="martes_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <Function Name="ActualizarImagenProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
           <Parameter Name="RutaImagen" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ActualizarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Precio" Type="decimal" Mode="In" />
+          <Parameter Name="Inventario" Type="int" Mode="In" />
+          <Parameter Name="IdCategoria" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ConsultarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
         </Function>
         <Function Name="ConsultarProductos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MostrarTodos" Type="bit" Mode="In" />
         </Function>
         <Function Name="ConsultarTiposCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="DeshabilitarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="IniciarSesionUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Identificacion" Type="varchar" Mode="In" />
           <Parameter Name="Clave" Type="varchar" Mode="In" />
@@ -34,8 +47,7 @@
           <Parameter Name="CorreoElectronico" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="martes_dbModelStoreContainer" />
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="martes_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -44,8 +56,18 @@
             <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
             <Parameter Name="RutaImagen" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="ActualizarProducto">
+            <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Precio" Mode="In" Type="Decimal" />
+            <Parameter Name="Inventario" Mode="In" Type="Int32" />
+            <Parameter Name="IdCategoria" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ConsultarProducto" ReturnType="Collection(martes_dbModel.ConsultarProducto_Result)">
+          <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
+          </FunctionImport>
           <FunctionImport Name="ConsultarProductos" ReturnType="Collection(martes_dbModel.ConsultarProductos_Result)">
-            <Parameter Name="MostrarTodos" Mode="In" Type="Boolean" />
+          <Parameter Name="MostrarTodos" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="ConsultarTiposCategoria" ReturnType="Collection(martes_dbModel.ConsultarTiposCategoria_Result)" />
           <FunctionImport Name="IniciarSesionUsuario" ReturnType="Collection(martes_dbModel.IniciarSesionUsuario_Result)">
@@ -68,7 +90,20 @@
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="DeshabilitarProducto">
+            <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="ConsultarProducto_Result">
+          <Property Type="Int64" Name="Consecutivo" Nullable="false" />
+          <Property Type="String" Name="NombreProducto" Nullable="false" MaxLength="200" />
+          <Property Type="Decimal" Name="Precio" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="Inventario" Nullable="false" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="String" Name="RutaImagen" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="IdCategoria" Nullable="false" />
+          <Property Type="String" Name="NombreCategoria" Nullable="false" MaxLength="200" />
+        </ComplexType>
         <ComplexType Name="ConsultarProductos_Result">
           <Property Type="Int64" Name="Consecutivo" Nullable="false" />
           <Property Type="String" Name="NombreProducto" Nullable="false" MaxLength="200" />
@@ -93,6 +128,7 @@
           <Property Type="Boolean" Name="Temporal" Nullable="false" />
           <Property Type="DateTime" Name="Vencimiento" Nullable="false" Precision="23" />
           <Property Type="Int64" Name="ConsecutivoRol" Nullable="false" />
+          <Property Type="String" Name="NombreRol" Nullable="false" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="RecuperarAccesoUsuario_Result">
           <Property Type="Int64" Name="Consecutivo" Nullable="false" />
@@ -111,6 +147,21 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="martes_dbModelStoreContainer" CdmEntityContainer="martes_dbEntities" >
           <FunctionImportMapping FunctionImportName="ActualizarImagenProducto" FunctionName="martes_dbModel.Store.ActualizarImagenProducto" />
+          <FunctionImportMapping FunctionImportName="ActualizarProducto" FunctionName="martes_dbModel.Store.ActualizarProducto" />
+          <FunctionImportMapping FunctionImportName="ConsultarProducto" FunctionName="martes_dbModel.Store.ConsultarProducto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="martes_dbModel.ConsultarProducto_Result">
+                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
+                <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Inventario" ColumnName="Inventario" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="RutaImagen" ColumnName="RutaImagen" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="NombreCategoria" ColumnName="NombreCategoria" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="ConsultarProductos" FunctionName="martes_dbModel.Store.ConsultarProductos">
             <ResultMapping>
               <ComplexTypeMapping TypeName="martes_dbModel.ConsultarProductos_Result">
@@ -145,6 +196,7 @@
                 <ScalarProperty Name="Temporal" ColumnName="Temporal" />
                 <ScalarProperty Name="Vencimiento" ColumnName="Vencimiento" />
                 <ScalarProperty Name="ConsecutivoRol" ColumnName="ConsecutivoRol" />
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -164,6 +216,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="RegistrarProducto" FunctionName="martes_dbModel.Store.RegistrarProducto" />
           <FunctionImportMapping FunctionImportName="RegistrarUsuario" FunctionName="martes_dbModel.Store.RegistrarUsuario" />
+          <FunctionImportMapping FunctionImportName="DeshabilitarProducto" FunctionName="martes_dbModel.Store.DeshabilitarProducto" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

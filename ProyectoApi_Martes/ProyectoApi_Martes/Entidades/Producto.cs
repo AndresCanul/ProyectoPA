@@ -31,8 +31,8 @@ namespace ProyectoApi_Martes.Entidades
 
         public string Detalle { get; set; }
 
-        public List<ConsultarProductos_Result> Datos { get; set; }
+        public object Datos { get; set; }
 
-        public ConsultarProductos_Result Dato { get; set; }
+        public object Dato { get; set; }
     }
 }

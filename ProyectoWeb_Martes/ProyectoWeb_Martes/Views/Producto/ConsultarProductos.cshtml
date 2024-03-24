@@ -22,23 +22,33 @@
                             </div>
                         }
 
-                        <table class="table table-bordered dataTable" style="width: 100%;">
+                        <div style="margin-bottom:1%; text-align: right">
+                            <a class="btn btn-primary" href="@Url.Action("RegistrarProducto", "Producto")">Agregar</a>
+                        </div>
+
+
+                        <table id="myDataTable" class="table table-bordered dataTable" style="width: 100%;">
                             <thead>
                                 <tr role="row">
+                                    <th>Codigo</th>
                                     <th>Nombre</th>
                                     <th>Precio</th>
                                     <th>Inventario</th>
+                                    <th>Imagen</th>
                                     <th>Categoría</th>
                                     <th>Estado</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
                                     <tr class="odd">
+                                        <td>@item.Consecutivo</td>
                                         <td>@item.NombreProducto</td>
                                         <td>@item.Precio</td>
                                         <td>@item.Inventario</td>
+                                        <td style="text-align:center"><img src="@item.RutaImagen" style="width:125px; height:125px"></td>
                                         <td>@item.NombreCategoria</td>
                                         @if (item.Estado)
                                         {
@@ -49,6 +59,10 @@
                                             <td>Inactivo</td>
                                         }
 
+                                        <td style="text-align:center">                                        
+                                           <a href="@Url.Action("ActualizarProducto", "Producto", new { id = item.Consecutivo })"><i class="fa fa-pen-to-square"></i></a>
+                                           <a href="@Url.Action("DeshabilitarProducto", "Producto", new { id = item.Consecutivo })"><i class="fa-solid fa-trash fa-solid"></i></a>
+                                        </td>
                                     </tr>
                                 }
                             </tbody>
@@ -60,3 +74,15 @@
         </div>
     </div>
 </div>
+
+<script src="~/Estilos/vendor/jquery/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#myDataTable').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+            },
+        });
+    });
+</script>
