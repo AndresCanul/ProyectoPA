@@ -11,7 +11,7 @@ namespace ProyectoApi_Martes.Models
 {
     using System;
     
-    public partial class IniciarSesionUsuario_Result
+    public partial class ConsultarPerfil_Result
     {
         public long Consecutivo { get; set; }
         public string Identificacion { get; set; }

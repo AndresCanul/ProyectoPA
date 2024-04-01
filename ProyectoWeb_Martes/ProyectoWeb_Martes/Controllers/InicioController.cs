@@ -1,12 +1,15 @@
 ﻿using ProyectoWeb_Martes.Entidades;
 using ProyectoWeb_Martes.Models;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace ProyectoWeb_Martes.Controllers
 {
+    [OutputCache(NoStore = true, VaryByParam = "*", Duration = 0)]
     public class InicioController : Controller
     {
         UsuarioModel modelo = new UsuarioModel();
+        ProductoModel productoModel = new ProductoModel();
 
         [HttpGet]
         public ActionResult IniciarSesion()
@@ -21,6 +24,7 @@ namespace ProyectoWeb_Martes.Controllers
 
             if (respuesta.Codigo == 0)
             {
+                Session["Consecutivo"] = respuesta.Dato.Consecutivo;
                 Session["NombreUsuario"] = respuesta.Dato.Nombre;
                 Session["RolUsuario"] = respuesta.Dato.ConsecutivoRol;
                 Session["NombreRol"] = respuesta.Dato.NombreRol;
@@ -73,6 +77,16 @@ namespace ProyectoWeb_Martes.Controllers
         [HttpGet]
         public ActionResult PantallaPrincipal()
         {
+            var respuesta = productoModel.ConsultarProductos(false);
+
+            if (respuesta.Codigo == 0)
+                return View(respuesta.Datos);
+            else
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View(new List<Producto>());
+            }
+
             return View();
         }
 

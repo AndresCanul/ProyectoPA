@@ -4,10 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="martes_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="martes_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <Function Name="ActualizarImagenProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
           <Parameter Name="RutaImagen" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ActualizarPerfil" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
+          <Parameter Name="Clave" Type="varchar" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="CorreoElectronico" Type="varchar" Mode="In" />
         </Function>
         <Function Name="ActualizarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
@@ -16,14 +22,34 @@
           <Parameter Name="Inventario" Type="int" Mode="In" />
           <Parameter Name="IdCategoria" Type="int" Mode="In" />
         </Function>
+        <Function Name="ActualizarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
+          <Parameter Name="ConsecutivoRol" Type="bigint" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="CorreoElectronico" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ConsultarPerfil" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="ConsultarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
         </Function>
         <Function Name="ConsultarProductos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MostrarTodos" Type="bit" Mode="In" />
         </Function>
+        <Function Name="ConsultarRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarTiposCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ConsultarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="ConsultarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
+          <Parameter Name="MostrarTodos" Type="bit" Mode="In" />
+        </Function>
         <Function Name="DeshabilitarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="DeshabilitarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
         </Function>
         <Function Name="IniciarSesionUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -47,7 +73,8 @@
           <Parameter Name="CorreoElectronico" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="martes_dbModelStoreContainer" />
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="martes_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -56,6 +83,12 @@
             <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
             <Parameter Name="RutaImagen" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="ActualizarPerfil">
+            <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
+            <Parameter Name="Clave" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="ActualizarProducto">
             <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
             <Parameter Name="Nombre" Mode="In" Type="String" />
@@ -63,13 +96,36 @@
             <Parameter Name="Inventario" Mode="In" Type="Int32" />
             <Parameter Name="IdCategoria" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="ActualizarUsuario">
+            <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
+            <Parameter Name="ConsecutivoRol" Mode="In" Type="Int64" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ConsultarPerfil" ReturnType="Collection(martes_dbModel.ConsultarPerfil_Result)">
+            <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
+          </FunctionImport>
           <FunctionImport Name="ConsultarProducto" ReturnType="Collection(martes_dbModel.ConsultarProducto_Result)">
-          <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
+            <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="ConsultarProductos" ReturnType="Collection(martes_dbModel.ConsultarProductos_Result)">
-          <Parameter Name="MostrarTodos" Mode="In" Type="Boolean" />
+            <Parameter Name="MostrarTodos" Mode="In" Type="Boolean" />
           </FunctionImport>
+          <FunctionImport Name="ConsultarRoles" ReturnType="Collection(martes_dbModel.ConsultarRoles_Result)" />
           <FunctionImport Name="ConsultarTiposCategoria" ReturnType="Collection(martes_dbModel.ConsultarTiposCategoria_Result)" />
+          <FunctionImport Name="ConsultarUsuario" ReturnType="Collection(martes_dbModel.ConsultarUsuario_Result)">
+            <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="ConsultarUsuarios" ReturnType="Collection(martes_dbModel.ConsultarUsuarios_Result)">
+            <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
+            <Parameter Name="MostrarTodos" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="DeshabilitarProducto">
+            <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="DeshabilitarUsuario">
+            <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
+          </FunctionImport>
           <FunctionImport Name="IniciarSesionUsuario" ReturnType="Collection(martes_dbModel.IniciarSesionUsuario_Result)">
             <Parameter Name="Identificacion" Mode="In" Type="String" />
             <Parameter Name="Clave" Mode="In" Type="String" />
@@ -90,10 +146,18 @@
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="DeshabilitarProducto">
-            <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
-          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="ConsultarPerfil_Result">
+          <Property Type="Int64" Name="Consecutivo" Nullable="false" />
+          <Property Type="String" Name="Identificacion" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CorreoElectronico" Nullable="false" MaxLength="200" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="Boolean" Name="Temporal" Nullable="false" />
+          <Property Type="DateTime" Name="Vencimiento" Nullable="false" Precision="23" />
+          <Property Type="Int64" Name="ConsecutivoRol" Nullable="false" />
+          <Property Type="String" Name="NombreRol" Nullable="false" MaxLength="50" />
+        </ComplexType>
         <ComplexType Name="ConsultarProducto_Result">
           <Property Type="Int64" Name="Consecutivo" Nullable="false" />
           <Property Type="String" Name="NombreProducto" Nullable="false" MaxLength="200" />
@@ -114,14 +178,34 @@
           <Property Type="Int32" Name="IdCategoria" Nullable="false" />
           <Property Type="String" Name="NombreCategoria" Nullable="false" MaxLength="200" />
         </ComplexType>
+        <ComplexType Name="ConsultarRoles_Result">
+          <Property Type="Int64" Name="ConsecutivoRol" Nullable="false" />
+          <Property Type="String" Name="NombreRol" Nullable="false" MaxLength="50" />
+        </ComplexType>
         <ComplexType Name="ConsultarTiposCategoria_Result">
           <Property Type="Int32" Name="IdCategoria" Nullable="false" />
           <Property Type="String" Name="NombreCategoria" Nullable="false" MaxLength="200" />
         </ComplexType>
+        <ComplexType Name="ConsultarUsuario_Result">
+          <Property Type="Int64" Name="Consecutivo" Nullable="false" />
+          <Property Type="String" Name="Identificacion" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CorreoElectronico" Nullable="false" MaxLength="200" />
+          <Property Type="Int64" Name="ConsecutivoRol" Nullable="false" />
+          <Property Type="String" Name="NombreRol" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ConsultarUsuarios_Result">
+          <Property Type="Int64" Name="Consecutivo" Nullable="false" />
+          <Property Type="String" Name="Identificacion" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="NombreRol" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="CorreoElectronico" Nullable="true" MaxLength="200" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="Boolean" Name="Temporal" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="IniciarSesionUsuario_Result">
           <Property Type="Int64" Name="Consecutivo" Nullable="false" />
           <Property Type="String" Name="Identificacion" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="Clave" Nullable="false" MaxLength="10" />
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="CorreoElectronico" Nullable="false" MaxLength="200" />
           <Property Type="Boolean" Name="Estado" Nullable="false" />
@@ -147,7 +231,24 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="martes_dbModelStoreContainer" CdmEntityContainer="martes_dbEntities" >
           <FunctionImportMapping FunctionImportName="ActualizarImagenProducto" FunctionName="martes_dbModel.Store.ActualizarImagenProducto" />
+          <FunctionImportMapping FunctionImportName="ActualizarPerfil" FunctionName="martes_dbModel.Store.ActualizarPerfil" />
           <FunctionImportMapping FunctionImportName="ActualizarProducto" FunctionName="martes_dbModel.Store.ActualizarProducto" />
+          <FunctionImportMapping FunctionImportName="ActualizarUsuario" FunctionName="martes_dbModel.Store.ActualizarUsuario" />
+          <FunctionImportMapping FunctionImportName="ConsultarPerfil" FunctionName="martes_dbModel.Store.ConsultarPerfil">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="martes_dbModel.ConsultarPerfil_Result">
+                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Temporal" ColumnName="Temporal" />
+                <ScalarProperty Name="Vencimiento" ColumnName="Vencimiento" />
+                <ScalarProperty Name="ConsecutivoRol" ColumnName="ConsecutivoRol" />
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="ConsultarProducto" FunctionName="martes_dbModel.Store.ConsultarProducto">
             <ResultMapping>
               <ComplexTypeMapping TypeName="martes_dbModel.ConsultarProducto_Result">
@@ -176,6 +277,14 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultarRoles" FunctionName="martes_dbModel.Store.ConsultarRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="martes_dbModel.ConsultarRoles_Result">
+                <ScalarProperty Name="ConsecutivoRol" ColumnName="ConsecutivoRol" />
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="ConsultarTiposCategoria" FunctionName="martes_dbModel.Store.ConsultarTiposCategoria">
             <ResultMapping>
               <ComplexTypeMapping TypeName="martes_dbModel.ConsultarTiposCategoria_Result">
@@ -184,12 +293,38 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultarUsuario" FunctionName="martes_dbModel.Store.ConsultarUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="martes_dbModel.ConsultarUsuario_Result">
+                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+                <ScalarProperty Name="ConsecutivoRol" ColumnName="ConsecutivoRol" />
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultarUsuarios" FunctionName="martes_dbModel.Store.ConsultarUsuarios">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="martes_dbModel.ConsultarUsuarios_Result">
+                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Temporal" ColumnName="Temporal" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DeshabilitarProducto" FunctionName="martes_dbModel.Store.DeshabilitarProducto" />
+          <FunctionImportMapping FunctionImportName="DeshabilitarUsuario" FunctionName="martes_dbModel.Store.DeshabilitarUsuario" />
           <FunctionImportMapping FunctionImportName="IniciarSesionUsuario" FunctionName="martes_dbModel.Store.IniciarSesionUsuario">
             <ResultMapping>
               <ComplexTypeMapping TypeName="martes_dbModel.IniciarSesionUsuario_Result">
                 <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
                 <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
-                <ScalarProperty Name="Clave" ColumnName="Clave" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
@@ -216,7 +351,6 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="RegistrarProducto" FunctionName="martes_dbModel.Store.RegistrarProducto" />
           <FunctionImportMapping FunctionImportName="RegistrarUsuario" FunctionName="martes_dbModel.Store.RegistrarUsuario" />
-          <FunctionImportMapping FunctionImportName="DeshabilitarProducto" FunctionName="martes_dbModel.Store.DeshabilitarProducto" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

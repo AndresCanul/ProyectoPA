@@ -1,4 +1,65 @@
-﻿
+﻿@model List<ProyectoWeb_Martes.Entidades.Producto>
+
 @{
     ViewBag.Title = "PantallaPrincipal";
 }
+
+
+<div class="card-body">
+    <div class="table-responsive">
+        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="col-sm-12">
+                <div class="col-sm-12">
+
+                    @if (ViewBag.MsjPantalla != null)
+                    {
+                        <div class="alert alert-warning" role="alert" style="text-align:center">
+                            @ViewBag.MsjPantalla
+                        </div>
+                    }
+
+                    <div class="row">
+
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-lg-4 col-md-8 col-sm-12" style="margin-bottom: 20px;">
+                                <div class="card">
+                                    <div style="text-align: center;">
+                                        <img class="card-img-top" src="@item.RutaImagen" style="width: 175px; height: 175px; margin-top: 20px" />
+                                    </div>
+
+                                    <div class="card-body">
+                                        <h5 class="card-title" style="font-weight: bold">@item.NombreProducto</h5>
+
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">Categoria: @item.NombreCategoria</li>
+                                            <li class="list-group-item">Inventario: @item.Inventario</li>
+                                            <li class="list-group-item">Precio: @item.Precio</li>
+                                        </ul>
+
+                                        @if (Session["RolUsuario"] != null && Session["RolUsuario"].ToString() != "1")
+                                        {
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <input type="number" class="form-control" value="1" min="1" max="5" style="text-align: center" />
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a href="#" class="card-link btn btn-outline-primary">Agregar</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,6 +7,8 @@ namespace ProyectoWeb_Martes.Entidades
 {
     public class Usuario
     {
+        public long Consecutivo { get; set; }
+
         public string Identificacion { get; set; }
 
         public string Clave { get; set; }
@@ -14,6 +16,10 @@ namespace ProyectoWeb_Martes.Entidades
         public string Nombre { get; set;}
 
         public string CorreoElectronico { get; set;}
+
+        public bool Estado { get; set; }
+
+        public bool Temporal { get; set; }
 
         public long ConsecutivoRol { get; set; }
 

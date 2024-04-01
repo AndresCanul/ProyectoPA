@@ -1,0 +1,89 @@
+﻿@model List<ProyectoWeb_Martes.Entidades.Usuario>
+
+@{
+    ViewBag.Title = "ConsultarUsuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Productos</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+
+                        @if (ViewBag.MsjPantalla != null)
+                        {
+                            <div class="alert alert-warning" role="alert" style="text-align:center">
+                                @ViewBag.MsjPantalla
+                            </div>
+                        }
+
+                        <table id="myDataTable" class="table table-bordered dataTable" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th>Id</th>
+                                    <th>Cedula</th>
+                                    <th>Nombre</th>
+                                    <th>Rol</th>
+                                    <th>Correo</th>
+                                    <th>Estado</th>
+                                    <th>Temporal</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="odd">
+                                        <td>@item.Consecutivo</td>
+                                        <td>@item.Identificacion</td>
+                                        <td>@item.Nombre</td>
+                                        <td>@item.NombreRol</td>
+                                        <td>@item.CorreoElectronico</td>
+                                        @if (item.Estado)
+                                        {
+                                            <td>Activo</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Inactivo</td>
+                                        }
+                                        @if (item.Temporal)
+                                        {
+                                            <td>Si</td>
+                                        }
+                                        else
+                                        {
+                                            <td>No</td>
+                                        }
+
+                                        <td style="text-align:center">
+                                            <a href="@Url.Action("ActualizarUsuario", "Usuario", new { id = item.Consecutivo })"><i class="fa fa-pen-to-square"></i></a>
+                                            <a href="@Url.Action("DeshabilitarUsuario", "Usuario", new { id = item.Consecutivo })"><i class="fa-solid fa-trash fa-solid"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Estilos/vendor/jquery/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#myDataTable').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+            },
+        });
+    });
+</script>

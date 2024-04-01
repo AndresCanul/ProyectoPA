@@ -12,6 +12,7 @@ namespace ProyectoWeb_Martes.Controllers
 {
     [FiltroSeguridad]
     [FiltroAdmin]
+    [OutputCache(NoStore = true, VaryByParam = "*", Duration = 0)]
     public class ProductoController : Controller
     {
         ProductoModel modelo = new ProductoModel();
