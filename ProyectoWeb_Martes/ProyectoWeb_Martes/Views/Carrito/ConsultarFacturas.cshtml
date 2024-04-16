@@ -1,0 +1,64 @@
+﻿@model List<ProyectoWeb_Martes.Entidades.Carrito>
+
+@{
+    ViewBag.Title = "ConsultaProductos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Mis Compras</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+
+                        @if (ViewBag.MsjPantalla != null)
+                        {
+                            <div class="alert alert-warning" role="alert" style="text-align:center">
+                                @ViewBag.MsjPantalla
+                            </div>
+                        }
+
+                        <table id="myDataTable" class="table table-bordered dataTable" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th># Factura</th>
+                                    <th>Total</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="odd">
+                                        <td>@item.ConsecutivoMaestro</td>
+                                        <td>@item.Total.ToString("N2")</td>
+                                        <td style="text-align:center">
+                                            <a href="@Url.Action("ConsultarDetalleFacturas","Carrito", new { id = @item.ConsecutivoMaestro })"><i class="fa fa-pencil-square-o fa-2x"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Estilos/vendor/jquery/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#myDataTable').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+            }
+        });
+    });
+
+</script>

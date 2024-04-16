@@ -151,9 +151,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Entidades\Carrito.cs" />
     <Compile Include="Entidades\Confirmacion.cs" />
     <Compile Include="Entidades\Producto.cs" />
     <Compile Include="Entidades\TiposCategoria.cs" />
@@ -161,6 +163,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CarritoModel.cs" />
     <Compile Include="Models\FiltroAdmin.cs" />
     <Compile Include="Models\FiltroSeguridad.cs" />
     <Compile Include="Models\ProductoModel.cs" />
@@ -209,6 +212,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Imagenes\10.png" />
+    <Content Include="Imagenes\19.png" />
+    <Content Include="Imagenes\20.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -344,10 +350,12 @@
     <Content Include="Views\Usuario\ActualizarPerfil.cshtml" />
     <Content Include="Views\Usuario\ConsultarUsuarios.cshtml" />
     <Content Include="Views\Usuario\ActualizarUsuario.cshtml" />
+    <Content Include="Views\Carrito\ConsultarCarrito.cshtml" />
+    <Content Include="Views\Carrito\ConsultarFacturas.cshtml" />
+    <Content Include="Views\Carrito\ConsultarDetalleFacturas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Imagenes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

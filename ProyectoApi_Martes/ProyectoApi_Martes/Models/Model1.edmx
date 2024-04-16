@@ -17,7 +17,7 @@
         </Function>
         <Function Name="ActualizarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
-          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="NombreProducto" Type="varchar" Mode="In" />
           <Parameter Name="Precio" Type="decimal" Mode="In" />
           <Parameter Name="Inventario" Type="int" Mode="In" />
           <Parameter Name="IdCategoria" Type="int" Mode="In" />
@@ -27,6 +27,20 @@
           <Parameter Name="ConsecutivoRol" Type="bigint" Mode="In" />
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
           <Parameter Name="CorreoElectronico" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="AgregarCarrito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ConsecutivoUsuario" Type="bigint" Mode="In" />
+          <Parameter Name="ConsecutivoProducto" Type="bigint" Mode="In" />
+          <Parameter Name="Cantidad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ConsultarCarrito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ConsecutivoUsuario" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="ConsultarDetalleFacturas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ConsecutivoMaestro" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="ConsultarFacturas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ConsecutivoUsuario" Type="bigint" Mode="In" />
         </Function>
         <Function Name="ConsultarPerfil" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
@@ -52,9 +66,15 @@
         <Function Name="DeshabilitarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Consecutivo" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="EliminarCarrito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ConsecutivoCarrito" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="IniciarSesionUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Identificacion" Type="varchar" Mode="In" />
           <Parameter Name="Clave" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PagarCarrito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ConsecutivoUsuario" Type="bigint" Mode="In" />
         </Function>
         <Function Name="RecuperarAccesoUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Identificacion" Type="varchar" Mode="In" />
@@ -91,7 +111,7 @@
           </FunctionImport>
           <FunctionImport Name="ActualizarProducto">
             <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
-            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="NombreProducto" Mode="In" Type="String" />
             <Parameter Name="Precio" Mode="In" Type="Decimal" />
             <Parameter Name="Inventario" Mode="In" Type="Int32" />
             <Parameter Name="IdCategoria" Mode="In" Type="Int32" />
@@ -101,6 +121,20 @@
             <Parameter Name="ConsecutivoRol" Mode="In" Type="Int64" />
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AgregarCarrito">
+            <Parameter Name="ConsecutivoUsuario" Mode="In" Type="Int64" />
+            <Parameter Name="ConsecutivoProducto" Mode="In" Type="Int64" />
+            <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ConsultarCarrito" ReturnType="Collection(martes_dbModel.ConsultarCarrito_Result)">
+            <Parameter Name="ConsecutivoUsuario" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="ConsultarDetalleFacturas" ReturnType="Collection(martes_dbModel.ConsultarDetalleFacturas_Result)">
+            <Parameter Name="ConsecutivoMaestro" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="ConsultarFacturas" ReturnType="Collection(martes_dbModel.ConsultarFacturas_Result)">
+            <Parameter Name="ConsecutivoUsuario" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="ConsultarPerfil" ReturnType="Collection(martes_dbModel.ConsultarPerfil_Result)">
             <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
@@ -126,9 +160,15 @@
           <FunctionImport Name="DeshabilitarUsuario">
             <Parameter Name="Consecutivo" Mode="In" Type="Int64" />
           </FunctionImport>
+          <FunctionImport Name="EliminarCarrito">
+            <Parameter Name="ConsecutivoCarrito" Mode="In" Type="Int64" />
+          </FunctionImport>
           <FunctionImport Name="IniciarSesionUsuario" ReturnType="Collection(martes_dbModel.IniciarSesionUsuario_Result)">
             <Parameter Name="Identificacion" Mode="In" Type="String" />
             <Parameter Name="Clave" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PagarCarrito">
+            <Parameter Name="ConsecutivoUsuario" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="RecuperarAccesoUsuario" ReturnType="Collection(martes_dbModel.RecuperarAccesoUsuario_Result)">
             <Parameter Name="Identificacion" Mode="In" Type="String" />
@@ -147,6 +187,36 @@
             <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="ConsultarCarrito_Result">
+          <Property Type="Int64" Name="ConsecutivoCarrito" Nullable="false" />
+          <Property Type="Int64" Name="ConsecutivoUsuario" Nullable="false" />
+          <Property Type="Int64" Name="ConsecutivoProducto" Nullable="false" />
+          <Property Type="DateTime" Name="FechaCarrito" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="Cantidad" Nullable="false" />
+          <Property Type="Decimal" Name="Precio" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="true" Precision="21" Scale="2" />
+          <Property Type="Decimal" Name="Impuesto" Nullable="true" Precision="24" Scale="4" />
+          <Property Type="Decimal" Name="Total" Nullable="true" Precision="25" Scale="4" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="ConsultarDetalleFacturas_Result">
+          <Property Type="Int64" Name="ConsecutivoDetalle" Nullable="false" />
+          <Property Type="Int64" Name="ConsecutivoMaestro" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="Cantidad" Nullable="false" />
+          <Property Type="Decimal" Name="Precio" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Impuestos" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Total" Nullable="false" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="ConsultarFacturas_Result">
+          <Property Type="Int64" Name="ConsecutivoMaestro" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="200" />
+          <Property Type="DateTime" Name="FechaCompra" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Impuestos" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Total" Nullable="false" Precision="18" Scale="2" />
+        </ComplexType>
         <ComplexType Name="ConsultarPerfil_Result">
           <Property Type="Int64" Name="Consecutivo" Nullable="false" />
           <Property Type="String" Name="Identificacion" Nullable="false" MaxLength="20" />
@@ -234,6 +304,49 @@
           <FunctionImportMapping FunctionImportName="ActualizarPerfil" FunctionName="martes_dbModel.Store.ActualizarPerfil" />
           <FunctionImportMapping FunctionImportName="ActualizarProducto" FunctionName="martes_dbModel.Store.ActualizarProducto" />
           <FunctionImportMapping FunctionImportName="ActualizarUsuario" FunctionName="martes_dbModel.Store.ActualizarUsuario" />
+          <FunctionImportMapping FunctionImportName="AgregarCarrito" FunctionName="martes_dbModel.Store.AgregarCarrito" />
+          <FunctionImportMapping FunctionImportName="ConsultarCarrito" FunctionName="martes_dbModel.Store.ConsultarCarrito">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="martes_dbModel.ConsultarCarrito_Result">
+                <ScalarProperty Name="ConsecutivoCarrito" ColumnName="ConsecutivoCarrito" />
+                <ScalarProperty Name="ConsecutivoUsuario" ColumnName="ConsecutivoUsuario" />
+                <ScalarProperty Name="ConsecutivoProducto" ColumnName="ConsecutivoProducto" />
+                <ScalarProperty Name="FechaCarrito" ColumnName="FechaCarrito" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultarDetalleFacturas" FunctionName="martes_dbModel.Store.ConsultarDetalleFacturas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="martes_dbModel.ConsultarDetalleFacturas_Result">
+                <ScalarProperty Name="ConsecutivoDetalle" ColumnName="ConsecutivoDetalle" />
+                <ScalarProperty Name="ConsecutivoMaestro" ColumnName="ConsecutivoMaestro" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Impuestos" ColumnName="Impuestos" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultarFacturas" FunctionName="martes_dbModel.Store.ConsultarFacturas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="martes_dbModel.ConsultarFacturas_Result">
+                <ScalarProperty Name="ConsecutivoMaestro" ColumnName="ConsecutivoMaestro" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FechaCompra" ColumnName="FechaCompra" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Impuestos" ColumnName="Impuestos" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="ConsultarPerfil" FunctionName="martes_dbModel.Store.ConsultarPerfil">
             <ResultMapping>
               <ComplexTypeMapping TypeName="martes_dbModel.ConsultarPerfil_Result">
@@ -320,6 +433,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="DeshabilitarProducto" FunctionName="martes_dbModel.Store.DeshabilitarProducto" />
           <FunctionImportMapping FunctionImportName="DeshabilitarUsuario" FunctionName="martes_dbModel.Store.DeshabilitarUsuario" />
+          <FunctionImportMapping FunctionImportName="EliminarCarrito" FunctionName="martes_dbModel.Store.EliminarCarrito" />
           <FunctionImportMapping FunctionImportName="IniciarSesionUsuario" FunctionName="martes_dbModel.Store.IniciarSesionUsuario">
             <ResultMapping>
               <ComplexTypeMapping TypeName="martes_dbModel.IniciarSesionUsuario_Result">
@@ -335,6 +449,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PagarCarrito" FunctionName="martes_dbModel.Store.PagarCarrito" />
           <FunctionImportMapping FunctionImportName="RecuperarAccesoUsuario" FunctionName="martes_dbModel.Store.RecuperarAccesoUsuario">
             <ResultMapping>
               <ComplexTypeMapping TypeName="martes_dbModel.RecuperarAccesoUsuario_Result">

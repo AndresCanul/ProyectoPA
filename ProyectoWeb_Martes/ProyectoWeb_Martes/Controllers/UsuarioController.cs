@@ -66,7 +66,7 @@ namespace ProyectoWeb_Martes.Controllers
         [HttpPost]
         public ActionResult ActualizarPerfil(Usuario entidad)
         {
-            var respuesta = modelo.ActualizarUsuario(entidad);
+            var respuesta = modelo.ActualizarPerfil(entidad);
 
             if (respuesta.Codigo == 0)
             {

@@ -1,6 +1,7 @@
 ﻿using ProyectoWeb_Martes.Entidades;
 using ProyectoWeb_Martes.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace ProyectoWeb_Martes.Controllers
@@ -10,6 +11,7 @@ namespace ProyectoWeb_Martes.Controllers
     {
         UsuarioModel modelo = new UsuarioModel();
         ProductoModel productoModel = new ProductoModel();
+        CarritoModel carritoModel = new CarritoModel();
 
         [HttpGet]
         public ActionResult IniciarSesion()
@@ -34,8 +36,9 @@ namespace ProyectoWeb_Martes.Controllers
             {
                 ViewBag.MsjPantalla = respuesta.Detalle;
                 return View();
-            }                
+            }
         }
+
 
         [HttpGet]
         public ActionResult RegistrarUsuario()
@@ -51,9 +54,12 @@ namespace ProyectoWeb_Martes.Controllers
             if (respuesta.Codigo == 0)
                 return RedirectToAction("IniciarSesion", "Inicio");
             else
+            {
                 ViewBag.MsjPantalla = respuesta.Detalle;
                 return View();
+            }
         }
+
 
         [HttpGet]
         public ActionResult RecuperarAcceso()
@@ -69,14 +75,32 @@ namespace ProyectoWeb_Martes.Controllers
             if (respuesta.Codigo == 0)
                 return RedirectToAction("IniciarSesion", "Inicio");
             else
+            {
                 ViewBag.MsjPantalla = respuesta.Detalle;
-            return View();
+                return View();
+            }
         }
+
 
         [FiltroSeguridad]
         [HttpGet]
         public ActionResult PantallaPrincipal()
         {
+            var datos = carritoModel.ConsultarCarrito(long.Parse(Session["Consecutivo"].ToString()));
+
+            if (datos.Codigo == 0)
+            {
+                Session["Cantidad"] = datos.Datos.AsEnumerable().Sum(x => x.Cantidad);
+                Session["SubTotal"] = datos.Datos.AsEnumerable().Sum(x => x.SubTotal);
+                Session["Total"] = datos.Datos.AsEnumerable().Sum(x => x.Total);
+            }
+            else
+            {
+                Session["Cantidad"] = "0";
+                Session["SubTotal"] = "0";
+                Session["Total"] = "0";
+            }
+
             var respuesta = productoModel.ConsultarProductos(false);
 
             if (respuesta.Codigo == 0)
@@ -86,9 +110,8 @@ namespace ProyectoWeb_Martes.Controllers
                 ViewBag.MsjPantalla = respuesta.Detalle;
                 return View(new List<Producto>());
             }
-
-            return View();
         }
+
 
         [FiltroSeguridad]
         [HttpGet]

@@ -93,7 +93,7 @@ namespace ProyectoWeb_Martes.Controllers
 
                     modelo.ActualizarImagenProducto(entidad);
                 }
-                
+
                 return RedirectToAction("ConsultarProductos", "Producto");
             }
             else
@@ -131,6 +131,5 @@ namespace ProyectoWeb_Martes.Controllers
 
             ViewBag.TiposCategoria = tiposCategoria;
         }
-
     }
 }
